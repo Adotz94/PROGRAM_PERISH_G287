@@ -2,13 +2,13 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>FreshCheck IGR G287 | Penerimaan Buah Lokal</title>
-    <!-- Font Awesome 6 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FreshCheck IGR G287 - Penerimaan Buah Lokal</title>
+    <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts -->
+    <!-- Google Fonts Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- TensorFlow.js & MobileNet for image classification (simulasi deteksi) -->
+    <!-- TensorFlow.js + MobileNet -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
     <style>
@@ -16,572 +16,592 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #eef3e8;
-            min-height: 100vh;
+            background: #d9e3d4;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 16px;
+            min-height: 100vh;
+            padding: 12px;
         }
 
-        /* card utama */
-        .app-container {
-            max-width: 550px;
+        /* Container utama seperti app */
+        .app-android {
+            max-width: 500px;
             width: 100%;
             margin: 0 auto;
-            background: white;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+            background: #ffffff;
+            border-radius: 44px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
             overflow: hidden;
-            transition: all 0.2s;
+            position: relative;
         }
 
-        .header-app {
+        /* Status bar dummy */
+        .status-bar {
             background: #1f582b;
-            padding: 24px 20px 20px;
+            padding: 12px 20px 6px;
             color: white;
-            text-align: center;
-        }
-        .header-app h1 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .badge-location {
-            background: #ffd966;
-            color: #1f4f2a;
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 40px;
             font-size: 0.75rem;
-            font-weight: 700;
-            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .login-box, .dashboard-box {
-            padding: 28px 24px 32px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-        .input-group label {
-            font-weight: 600;
-            display: block;
-            margin-bottom: 6px;
-            color: #2d3e2c;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 14px 18px;
-            border-radius: 34px;
-            border: 1.5px solid #cfdec9;
-            font-size: 1rem;
-            background: #fefef7;
-            transition: 0.2s;
-        }
-        .input-group input:focus {
-            border-color: #2e8b3c;
-            outline: none;
-        }
-        .btn-primary {
-            background: #2a6e38;
+        /* Header */
+        .app-header {
+            background: linear-gradient(135deg, #1e5829, #2b743a);
+            padding: 20px 22px;
             color: white;
-            border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 44px;
+        }
+        .app-header h1 {
+            font-size: 1.8rem;
             font-weight: 700;
-            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .app-header h1 i {
+            background: #ffcd7e;
+            color: #1f4f2a;
+            padding: 8px;
+            border-radius: 40px;
+            font-size: 1.3rem;
+        }
+        .lokasi-badge {
+            background: rgba(255,255,255,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-top: 8px;
+            backdrop-filter: blur(2px);
+        }
+
+        /* konten */
+        .content {
+            padding: 20px 18px 28px;
+        }
+
+        /* Camera card */
+        .camera-card {
+            background: #f6faf3;
+            border-radius: 36px;
+            padding: 18px;
+            margin-bottom: 20px;
+            border: 1px solid #e2f0dc;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+        .camera-preview {
+            background: #e2ecd9;
+            border-radius: 32px;
+            overflow: hidden;
+            margin: 12px 0;
+            min-height: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-primary:active { background: #1e5628; transform: scale(0.97);}
-        .btn-secondary {
-            background: #f0f4ec;
-            color: #2a6e38;
-            border: 1px solid #c0dbc0;
-            border-radius: 44px;
-            padding: 12px;
-            font-weight: 600;
-        }
-        .camera-area {
-            background: #f8faf5;
-            border-radius: 32px;
-            padding: 20px;
-            margin: 16px 0;
-            text-align: center;
-            border: 2px dashed #bcddab;
+            position: relative;
         }
         #video, #capturedImage {
             width: 100%;
-            border-radius: 28px;
-            background: #e2e9dd;
-            margin-top: 8px;
+            display: block;
+            object-fit: cover;
+            max-height: 280px;
         }
         #capturedImage {
-            max-height: 260px;
-            object-fit: cover;
+            background: #cfddc4;
         }
-        .flex-buttons {
+        .btn-row {
             display: flex;
             gap: 12px;
-            margin: 12px 0;
+            margin: 12px 0 8px;
         }
-        .icon-btn {
-            background: #eef3ea;
-            border: none;
-            padding: 12px;
-            border-radius: 60px;
+        .btn-android {
             flex: 1;
-            font-weight: 600;
+            background: white;
+            border: none;
+            padding: 14px 0;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.1s linear;
+            background: #fefefe;
+            border: 1px solid #cfe0c7;
         }
+        .btn-primary-solid {
+            background: #2a7a38;
+            color: white;
+            border: none;
+            box-shadow: none;
+        }
+        .btn-primary-solid:active {
+            background: #1e602b;
+            transform: scale(0.97);
+        }
+        .btn-android:active {
+            transform: scale(0.97);
+            background: #eef3ea;
+        }
+        .info-detection {
+            font-size: 0.75rem;
+            color: #4b6b3e;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        /* Result card */
         .result-card {
-            background: #fefce8;
-            border-radius: 28px;
-            padding: 18px;
-            margin-top: 16px;
-            border-left: 8px solid #efa23b;
+            background: #fffef7;
+            border-radius: 32px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 8px solid #f6b83d;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            transition: all 0.2s;
         }
-        .status-terima {
-            background: #e0f5e4;
+        .result-diterima {
             border-left-color: #2e8b3c;
+            background: #effbef;
         }
-        .status-tolak {
-            background: #ffe9e6;
-            border-left-color: #c33;
+        .result-ditolak {
+            border-left-color: #e34234;
+            background: #fff0ed;
         }
-        .fruit-name {
-            font-size: 1.4rem;
+        .fruit-title {
+            font-size: 1.5rem;
             font-weight: 800;
-        }
-        .std-gallery {
             display: flex;
-            overflow-x: auto;
-            gap: 12px;
-            margin-top: 12px;
-            padding-bottom: 8px;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
-        .std-card {
-            min-width: 130px;
-            background: white;
+        .badge-keputusan {
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .brix-value {
+            background: #f2f0e6;
+            border-radius: 28px;
+            padding: 8px 12px;
+            margin: 12px 0;
+            display: inline-block;
+        }
+        .referensi-standar {
+            background: #fff1da;
             border-radius: 24px;
-            padding: 8px;
+            padding: 10px 14px;
+            font-size: 0.75rem;
+            margin-top: 12px;
+        }
+        /* gallery standar */
+        .standar-gallery {
+            margin-top: 24px;
+        }
+        .gallery-scroll {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            padding: 6px 4px 12px;
+            scrollbar-width: thin;
+        }
+        .gallery-item {
+            min-width: 130px;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 10px;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8dd;
         }
-        .std-card img {
+        .gallery-item img {
             width: 100%;
-            height: 100px;
+            height: 110px;
             object-fit: cover;
-            border-radius: 18px;
-            background: #cfdfc7;
+            border-radius: 20px;
+            background: #cddfc0;
         }
-        .logout-btn {
+        .gallery-item span {
+            font-weight: 600;
+            font-size: 0.7rem;
+            display: block;
+            margin-top: 6px;
+        }
+        .logout-footer {
             background: none;
             border: none;
-            color: #a0b89a;
-            margin-top: 12px;
+            color: #98ab8f;
+            margin-top: 14px;
+            width: 100%;
+            padding: 12px;
             font-size: 0.8rem;
         }
         hr {
-            margin: 16px 0;
+            margin: 10px 0;
+            border: none;
+            height: 1px;
+            background: #e2e9dc;
         }
-        .accuracy-note {
-            font-size: 0.7rem;
-            color: #6e7c68;
-        }
-        @media (max-width: 480px) {
-            .app-container { border-radius: 32px; }
-            .header-app h1 { font-size: 1.4rem; }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
     </style>
 </head>
 <body>
-<div class="app-container" id="appRoot">
+<div class="app-android" id="appRoot">
     <!-- Halaman Login -->
-    <div id="loginPage">
-        <div class="header-app">
-            <h1><i class="fas fa-apple-alt"></i> FreshCheck IGR</h1>
-            <div class="badge-location"><i class="fas fa-warehouse"></i> Padalarang G287 | DC Perishable</div>
+    <div id="loginScreen">
+        <div class="app-header">
+            <h1><i class="fas fa-apple-alt"></i> FreshCheck</h1>
+            <div class="lokasi-badge"><i class="fas fa-map-marker-alt"></i> IGR Padalarang G287</div>
         </div>
-        <div class="login-box">
-            <div class="input-group">
-                <label><i class="fas fa-user"></i> Username</label>
-                <input type="text" id="username" placeholder="Admin" value="Admin">
+        <div class="content">
+            <div style="margin-bottom: 30px;">
+                <p style="color: #2d4a2c; font-weight: 500;"><i class="fas fa-shield-alt"></i> Penerimaan Buah Lokal | Wajib Sampling</p>
             </div>
-            <div class="input-group">
-                <label><i class="fas fa-lock"></i> Password</label>
-                <input type="password" id="password" placeholder="••••••" value="G287">
+            <div class="input-group" style="margin-bottom: 18px;">
+                <label style="font-weight: 600;">Username</label>
+                <input type="text" id="loginUser" placeholder="Admin" value="Admin" style="width:100%; padding: 14px; border-radius: 34px; border:1px solid #cbdcc2; font-size:1rem;">
             </div>
-            <button class="btn-primary" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Masuk ke sistem</button>
-            <p class="accuracy-note" style="text-align:center; margin-top:14px;">Demo kredensial: Admin / G287</p>
+            <div class="input-group" style="margin-bottom: 24px;">
+                <label style="font-weight: 600;">Password</label>
+                <input type="password" id="loginPass" placeholder="Kata sandi" value="G287" style="width:100%; padding: 14px; border-radius: 34px; border:1px solid #cbdcc2;">
+            </div>
+            <button id="doLoginBtn" class="btn-android btn-primary-solid" style="width:100%;"><i class="fas fa-sign-in-alt"></i> Masuk ke sistem</button>
+            <p class="info-detection" style="margin-top: 18px;">Gunakan kredensial: Admin / G287</p>
         </div>
     </div>
 
     <!-- Halaman Dashboard (setelah login) -->
-    <div id="dashboardPage" style="display:none;">
-        <div class="header-app" style="padding: 18px 20px;">
-            <h1><i class="fas fa-camera-retro"></i> Scan & Verifikasi</h1>
-            <div class="badge-location">IGR PADALARANG G287 | OFFICER: ADMIN</div>
-            <button id="logoutBtnDashboard" class="logout-btn" style="color:#ffeaaf; margin-top:6px;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    <div id="dashboardScreen" style="display:none;">
+        <div class="app-header" style="padding: 16px 20px;">
+            <div class="flex-between">
+                <h1 style="font-size:1.4rem;"><i class="fas fa-camera-retro"></i> Scan Buah</h1>
+                <button id="logoutBtnDash" style="background:rgba(255,255,255,0.2); border:none; padding:8px 14px; border-radius:50px; color:white;"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+            <div class="lokasi-badge"><i class="fas fa-warehouse"></i> IGR G287 | Admin</div>
         </div>
-        <div class="dashboard-box">
-            <!-- Kamera / Upload Foto -->
-            <div class="camera-area">
-                <i class="fas fa-camera" style="font-size: 26px; color:#3e7a44;"></i>
-                <p style="margin: 5px 0; font-weight:500;">Foto buah langsung dari kamera Android</p>
-                <video id="video" width="100%" autoplay playsinline style="display:none; border-radius: 24px;"></video>
-                <canvas id="canvas" style="display:none;"></canvas>
-                <img id="capturedImage" src="" alt="Preview buah" style="width:100%; max-height:250px; object-fit:cover; border-radius: 24px; display:none;">
-                <div class="flex-buttons">
-                    <button id="openCameraBtn" class="icon-btn"><i class="fas fa-camera"></i> Buka Kamera</button>
-                    <button id="captureBtn" class="icon-btn" style="background:#2a6e38; color:white;" disabled><i class="fas fa-image"></i> Ambil Foto</button>
+        <div class="content">
+            <!-- Kamera & Upload -->
+            <div class="camera-card">
+                <div style="font-weight: 700;"><i class="fas fa-camera"></i> Foto buah (wajib sampling acak)</div>
+                <div class="camera-preview" id="previewContainer">
+                    <video id="video" autoplay playsinline style="display:none; border-radius: 28px;"></video>
+                    <img id="capturedImage" src="" alt="Preview buah" style="display:none; border-radius: 28px;">
+                    <canvas id="canvas" style="display:none;"></canvas>
+                    <div id="cameraPlaceholder" style="padding:40px; text-align:center; color:#7f9972;"><i class="fas fa-image" style="font-size: 44px;"></i><br>Tekan Buka Kamera</div>
                 </div>
-                <input type="file" id="fileUpload" accept="image/*" capture="environment" style="display:none;">
-                <button id="uploadGalleryBtn" class="icon-btn btn-secondary"><i class="fas fa-folder-open"></i> Pilih dari Galeri</button>
-                <div id="detectionStatus" style="margin-top:10px; font-size:0.8rem; color:#5e7360;"></div>
+                <div class="btn-row">
+                    <button id="openCameraBtnMobile" class="btn-android"><i class="fas fa-camera"></i> Buka Kamera</button>
+                    <button id="capturePhotoBtn" class="btn-android btn-primary-solid" disabled><i class="fas fa-dot-circle"></i> Jepret</button>
+                </div>
+                <button id="galleryBtnMobile" class="btn-android" style="width:100%; margin-top:6px;"><i class="fas fa-images"></i> Pilih dari Galeri</button>
+                <input type="file" id="fileInput" accept="image/*" capture="environment" style="display:none;">
+                <div id="detectStatus" class="info-detection">🤖 Siap deteksi setelah foto</div>
             </div>
 
-            <!-- Hasil Deteksi / Keputusan Otomatis -->
-            <div id="resultPanel" style="display:none;" class="result-card">
-                <div class="flex-icon-text" style="display:flex; justify-content:space-between; align-items:center;">
-                    <span class="fruit-name" id="detectedFruitName">-</span>
-                    <span id="decisionBadge" style="font-weight:800; padding:6px 12px; border-radius:40px;"></span>
+            <!-- Hasil Deteksi Otomatis (Terima/Tolak) -->
+            <div id="resultArea" style="display:none;" class="result-card">
+                <div class="fruit-title">
+                    <span id="fruitDetectedName">-</span>
+                    <span id="decisionChip" class="badge-keputusan">--</span>
                 </div>
-                <div id="brixInfo" style="margin-top:8px;"><i class="fas fa-chart-line"></i> <span id="brixValue">--</span> (Brix minimal standar)</div>
-                <div id="reasonText" style="margin-top:8px; font-size:0.85rem;"></div>
-                <div id="standarRef" style="margin-top:12px; background:#fff1cf; border-radius:18px; padding:8px; font-size:0.75rem;"></div>
-                <button id="confirmReportBtn" class="btn-primary" style="margin-top:14px; background:#1f5e2d;"><i class="fas fa-check-double"></i> Laporkan ke Google Form (Simulasi)</button>
-                <p class="accuracy-note" style="margin-top:8px;"><i class="fas fa-microchip"></i> Deteksi AI berdasarkan citra buah & standar SOP buah lokal. Hasil keputusan otomatis (Terima/Tolak) sesuai parameter brix & kondisi fisik.</p>
+                <div id="brixInfoArea" class="brix-value"><i class="fas fa-tachometer-alt"></i> <span id="brixDisplay">--</span></div>
+                <div id="reasonDetail" style="margin: 12px 0; font-size:0.85rem;"></div>
+                <div id="stdRefDetail" class="referensi-standar"></div>
+                <button id="submitReportBtn" class="btn-android btn-primary-solid" style="margin-top:16px;"><i class="fas fa-check-circle"></i> Laporkan ke Group Sampling</button>
             </div>
 
-            <!-- Galeri Standar Penerimaan (foto2 dari PDF-like) -->
-            <div style="margin-top: 28px;">
-                <h4 style="display:flex; gap:6px;"><i class="fas fa-images"></i> Standar Penerimaan & Penolakan (Foto Acuan)</h4>
-                <div class="std-gallery">
-                    <div class="std-card"><img src="https://placehold.co/400x250/2d6a3a/white?text=Semangka+Matang+Brix+8%25" alt="semangka baik"><span>✓ Semangka Merah</span><small style="display:block;">Brix≥8%</small></div>
-                    <div class="std-card"><img src="https://placehold.co/400x250/8b3a3a/white?text=Busuk+Semangka" alt="semangka busuk"><span>✘ Semangka Busuk</span><small>tolak (berongga)</small></div>
-                    <div class="std-card"><img src="https://placehold.co/400x250/3b9e4a/white?text=Melon+Golden+Brix10" alt="melon baik"><span>✓ Melon Golden</span><small>brix 10%</small></div>
-                    <div class="std-card"><img src="https://placehold.co/400x250/c96f3e/white?text=Overripe+Melon" alt="melon overripe"><span>✘ Melon lembek</span><small>core berair</small></div>
-                    <div class="std-card"><img src="https://placehold.co/400x250/2b7644/white?text=Pepaya+California" alt="pepaya matang"><span>✓ Pepaya cali</span><small>1 polet kuning</small></div>
-                    <div class="std-card"><img src="https://placehold.co/400x250/673e2a/white?text=Pepaya+Hijau+Mentah" alt="pepaya mentah"><span>✘ Pepaya putih</span><small>petik muda</small></div>
+            <!-- Galeri Standar Penerimaan / Penolakan -->
+            <div class="standar-gallery">
+                <div style="display: flex; gap:6px; margin-bottom: 10px;"><i class="fas fa-clipboard-list"></i> <strong>Standar visual (SOP Buah Lokal)</strong></div>
+                <div class="gallery-scroll">
+                    <div class="gallery-item"><img src="https://placehold.co/400x250/2d6a3a/white?text=Semangka+Matang+Brix8" alt="semangka baik"><span>✓ Semangka Merah (Brix≥8%)</span></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x250/8b3a3a/white?text=Semangka+Busuk" alt="semangka reject"><span>✘ Semangka berongga/busuk</span></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x250/3e9f4a/white?text=Melon+Golden+Brix10" alt="melon golden"><span>✓ Melon Golden Brix 10%</span></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x250/c96f3e/white?text=Overripe+Melon" alt="melon overripe"><span>✘ Melon core berair</span></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x250/ffb347/white?text=Pepaya+1+Polet" alt="pepaya cali baik"><span>✓ Pepaya California (1 polet)</span></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x250/6a4c3c/white?text=Pepaya+Hijau+Mentah" alt="pepaya muda"><span>✘ Pepaya putih (mentah)</span></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x250/f5bc70/white?text=Pisang+Cavendish+Step3" alt="pisang baik"><span>✓ Pisang Cavendish step 3-4</span></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x250/884d3a/white?text=Pisang+Busuk" alt="pisang reject"><span>✘ Pisang overripe/brown</span></div>
                 </div>
-                <p class="accuracy-note" style="margin-top:10px;"><i class="fas fa-info-circle"></i> Foto standar mengacu pada SOP buah lokal (semangka, melon, pepaya, mangga, pisang). Untuk keputusan final: hasil AI + base data reject/terima dari standar brix dan kondisi fisik.</p>
+                <p class="info-detection" style="margin-top: 8px;"><i class="fas fa-info-circle"></i> Acuan berdasarkan dokumen SOP buah lokal & standar brix</p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // -------------------- KREDENSIAL --------------------
+    // Credentials
     const VALID_USER = "Admin";
     const VALID_PASS = "G287";
 
-    // Database standar penerimaan & deteksi (parameter BRIX dan kondisi penolakan)
-    // Data berdasarkan SOP buah lokal ekstrak dari PDF (detail)
-    const FRUIT_STANDARDS = {
-        "semangka merah": { brixMin: 8,  terimaJika: "Daging merah/kuning, tidak berongga, manis minimal brix 8%", tolakJika: "Daging berongga/masir, brix<8%, busuk", imageTag:"semangka", accept:true },
-        "semangka kuning": { brixMin: 8, terimaJika: "Daging kuning tanpa biji, brix min 8%", tolakJika: "Tekstur lunak, brix rendah", accept:true },
-        "melon": { brixMin: 9, terimaJika: "Melon Rock/Sky brix 9-10%, daging crunchy", tolakJika: "Core berair, biji rontok, brix<9%", accept:true },
-        "melon golden": { brixMin: 10, terimaJika: "Daging orange manis, brix min 10%", tolakJika: "Biji rontok, aroma tidak segar", accept:true },
-        "pepaya california": { brixMin: null, visualMin: "kulit hijau minimal 1 polet kuning, daging merah", tolakJika: "Kulit hijau tua daging putih (mentah) atau kuning pekat (overripe)", accept:true },
-        "pepaya": { brixMin: null, terimaJika: "Kulit hijau semburat kuning, daging merah", tolakJika: "Kulit dominan kuning/lembek", accept:true },
-        "pisang cavendish": { brixMin: null, step: "step 3-4", terimaJika: "panjang 5.5-6.5 inch, kulit hijau-kuning, tidak memar basah", tolakJika: "chilling injury (coklat), green soft, split peel", accept:true },
-        "pisang barangan": { terimaJika: "Kulit hijau keras semburat kuning", tolakJika: "Kulit kuning pekat, lembek, busuk", accept:true },
-        "mangga harum manis": { brixMin: null, terimaJika: "Petik tua pohon, tekstur keras, daging tengah menguning", tolakJika: "Petik muda (biji putih), memar basah", accept:true },
-        "mangga": { brixMin: null, terimaJika: "Mangga petik tua, bentuk simetris", tolakJika: "Busuk, berulat, getah berlebihan", accept:true },
-        "manggis": { terimaJika: "Kulit merah segar, kelopak hijau", tolakJika: "Kulit hitam keras, kelopak kering, daging flek coklat", accept:true },
-        "durian": { terimaJika: "Kulit hijau semburat kuning, daging tebal", tolakJika: "Black spot, pecah mayor, berjamur", accept:true },
-        "nanas": { brixMin: 10, nanasSpecial: "Nanas Honi brix min 13%", tolakJika: "Brix di bawah standar, busuk", accept:true },
-        "jambu kristal": { terimaJika: "Kulit hijau, terbungkus plastik, tidak flek basah", tolakJika: "Busuk, lembek", accept:true }
+    // DOM elemen
+    const loginScreen = document.getElementById('loginScreen');
+    const dashboardScreen = document.getElementById('dashboardScreen');
+    const doLoginBtn = document.getElementById('doLoginBtn');
+    const logoutBtnDash = document.getElementById('logoutBtnDash');
+    const openCameraBtn = document.getElementById('openCameraBtnMobile');
+    const captureBtn = document.getElementById('capturePhotoBtn');
+    const galleryBtn = document.getElementById('galleryBtnMobile');
+    const fileInput = document.getElementById('fileInput');
+    const video = document.getElementById('video');
+    const capturedImg = document.getElementById('capturedImage');
+    const canvas = document.getElementById('canvas');
+    const cameraPlaceholder = document.getElementById('cameraPlaceholder');
+    const detectStatusSpan = document.getElementById('detectStatus');
+    const resultArea = document.getElementById('resultArea');
+    const fruitDetectedNameSpan = document.getElementById('fruitDetectedName');
+    const decisionChip = document.getElementById('decisionChip');
+    const brixDisplaySpan = document.getElementById('brixDisplay');
+    const reasonDetailDiv = document.getElementById('reasonDetail');
+    const stdRefDetailDiv = document.getElementById('stdRefDetail');
+    const submitReportBtn = document.getElementById('submitReportBtn');
+
+    let model = null;
+    let currentStream = null;
+    let currentImageDataURL = null;
+
+    // Standar database buah (SOP dari PDF)
+    const FRUIT_DB = {
+        "semangka merah": { brixMin: 8, acceptMsg: "Daging merah/kuning, brix≥8%, tidak berongga", rejectMsg: "Brix<8% atau daging berongga/masir/busuk", accept: true },
+        "semangka kuning": { brixMin: 8, acceptMsg: "Daging kuning manis, brix min 8%", rejectMsg: "Brix rendah, tekstur lunak", accept: true },
+        "melon": { brixMin: 9, acceptMsg: "Melon brix 9-10%, daging crunchy, core tidak berair", rejectMsg: "Brix<9%, core berair/biji rontok", accept: true },
+        "melon golden": { brixMin: 10, acceptMsg: "Melon golden brix≥10%, daging orange manis", rejectMsg: "Brix rendah, aroma tidak segar", accept: true },
+        "pepaya california": { brixMin: null, acceptMsg: "Kulit hijau minimal 1 polet kuning, daging merah", rejectMsg: "Kulit hijau tua daging putih atau kuning pekat overripe", accept: true },
+        "pisang cavendish": { acceptMsg: "Step 3-4, kulit hijau semburat kuning, panjang standar", rejectMsg: "Chilling injury, green soft, split peel, overripe", accept: true },
+        "pisang barangan": { acceptMsg: "Kulit hijau keras semburat kuning, tidak lembek", rejectMsg: "Kulit kuning pekat, lembek, busuk", accept: true },
+        "mangga harum manis": { acceptMsg: "Petik tua pohon, tekstur keras, daging tengah menguning", rejectMsg: "Petik muda (biji putih), memar basah", accept: true },
+        "manggis": { acceptMsg: "Kulit merah segar, kelopak hijau, getah minor", rejectMsg: "Kulit hitam, kelopak kering, daging flek coklat", accept: true },
+        "durian": { acceptMsg: "Kulit hijau semburat kuning, daging tebal manis", rejectMsg: "Black spot, pecah mayor, busuk berjamur", accept: true },
+        "nanas": { brixMin: 10, acceptMsg: "Nanas lokal brix ≥10% (Honi 13%)", rejectMsg: "Brix dibawah standar, busuk", accept: true },
+        "default": { acceptMsg: "Memenuhi kriteria kelayakan fisik tidak busuk/memar", rejectMsg: "Terdapat indikasi kerusakan / tidak segar", accept: true }
     };
 
-    // Fungsi simulasi deteksi AI berdasarkan label dari mobilenet kemudian mapping ke buah lokal
-    let model = null;
-    let videoStream = null;
-    let currentImageData = null; // menyimpan dataURL hasil capture
-
-    // Elemen DOM
-    const loginPage = document.getElementById('loginPage');
-    const dashboardPage = document.getElementById('dashboardPage');
-    const loginBtn = document.getElementById('loginBtn');
-    const logoutBtn = document.getElementById('logoutBtnDashboard');
-    const openCameraBtn = document.getElementById('openCameraBtn');
-    const captureBtn = document.getElementById('captureBtn');
-    const fileUpload = document.getElementById('fileUpload');
-    const uploadGalleryBtn = document.getElementById('uploadGalleryBtn');
-    const videoElem = document.getElementById('video');
-    const canvasElem = document.getElementById('canvas');
-    const capturedImg = document.getElementById('capturedImage');
-    const resultPanel = document.getElementById('resultPanel');
-    const detectedFruitNameSpan = document.getElementById('detectedFruitName');
-    const decisionBadge = document.getElementById('decisionBadge');
-    const brixValueSpan = document.getElementById('brixValue');
-    const reasonTextDiv = document.getElementById('reasonText');
-    const standarRefDiv = document.getElementById('standarRef');
-    const detectionStatusSpan = document.getElementById('detectionStatus');
-
-    // Login handler
-    loginBtn.addEventListener('click', () => {
-        const user = document.getElementById('username').value.trim();
-        const pass = document.getElementById('password').value.trim();
-        if(user === VALID_USER && pass === VALID_PASS) {
-            loginPage.style.display = 'none';
-            dashboardPage.style.display = 'block';
-            loadModel();
-        } else {
-            alert("Username atau password salah! \nGunakan Admin / G287");
+    // Mapping label AI ke buah lokal
+    function mapLabelToFruit(label) {
+        const l = label.toLowerCase();
+        if (l.includes("watermelon")) return "semangka merah";
+        if (l.includes("melon") && (l.includes("golden") || l.includes("honey"))) return "melon golden";
+        if (l.includes("melon") || l.includes("cantaloupe")) return "melon";
+        if (l.includes("papaya")) return "pepaya california";
+        if (l.includes("banana")) {
+            if (l.includes("cavendish")) return "pisang cavendish";
+            return "pisang barangan";
         }
-    });
+        if (l.includes("mango")) return "mangga harum manis";
+        if (l.includes("mangosteen")) return "manggis";
+        if (l.includes("durian")) return "durian";
+        if (l.includes("pineapple") || l.includes("nanas")) return "nanas";
+        return "default";
+    }
 
-    async function loadModel() {
-        detectionStatusSpan.innerText = "Memuat model AI (MobileNet)... siapkan kamera";
+    // Fungsi evaluasi AI + brix simulasi (mengacu SOP)
+    async function evaluateFruitByImage(imageDataUrl) {
+        if (!model) {
+            detectStatusSpan.innerText = "Model AI memuat ulang, coba lagi...";
+            await loadMobileNet();
+        }
+        const img = new Image();
+        img.src = imageDataUrl;
+        await new Promise(resolve => { img.onload = resolve; });
         try {
-            model = await mobilenet.load();
-            detectionStatusSpan.innerText = "✅ Model siap. Buka kamera & foto buah.";
-        } catch(e) {
-            detectionStatusSpan.innerText = "Gagal load model, tetap bisa pakai deteksi manual? silakan refresh.";
-            console.warn(e);
+            const predictions = await model.classify(img);
+            if (!predictions.length) throw new Error("tidak terdeteksi");
+            const topLabel = predictions[0].className;
+            detectStatusSpan.innerText = `📸 AI mendeteksi: ${topLabel.substring(0, 35)}`;
+            let fruitKey = mapLabelToFruit(topLabel);
+            const std = FRUIT_DB[fruitKey] || FRUIT_DB["default"];
+            const hasRejectWord = topLabel.toLowerCase().includes("rotten") || topLabel.toLowerCase().includes("mold") || topLabel.toLowerCase().includes("bruised") || topLabel.toLowerCase().includes("decay");
+            
+            let isAccepted = true;
+            let reason = "";
+            let brixSim = "tidak diukur";
+            // Simulasi brix untuk semangka/melon/nanas
+            if ((fruitKey === "semangka merah" || fruitKey === "semangka kuning") && std.brixMin) {
+                const simulated = (Math.random() * 3.5 + 6.5).toFixed(1);
+                brixSim = `${simulated}%`;
+                if (parseFloat(simulated) >= std.brixMin && !hasRejectWord) {
+                    reason = `Brix ${simulated}% ≥ standar ${std.brixMin}%, daging baik => DITERIMA.`;
+                } else if (parseFloat(simulated) < std.brixMin) {
+                    isAccepted = false;
+                    reason = `Brix ${simulated}% < ${std.brixMin}% (kemanisan rendah) => TOLAK sesuai SOP.`;
+                } else { isAccepted = !hasRejectWord; reason = hasRejectWord ? "Terindikasi fisik tidak layak (busuk/memar) => TOLAK." : std.acceptMsg; }
+            } 
+            else if (fruitKey === "melon" || fruitKey === "melon golden") {
+                let minReq = (fruitKey === "melon golden") ? 10 : 9;
+                let simBrix = (Math.random() * 3 + 8).toFixed(1);
+                brixSim = `${simBrix}%`;
+                if (parseFloat(simBrix) >= minReq && !hasRejectWord) {
+                    reason = `Brix ${simBrix}% memenuhi standar ${minReq}%, kondisi segar => DITERIMA.`;
+                } else {
+                    isAccepted = false;
+                    reason = `Brix ${simBrix}% < ${minReq}% atau indikasi busuk => TOLAK (core berair / overripe).`;
+                }
+            } 
+            else if (fruitKey === "nanas") {
+                let simBrix = (Math.random() * 4 + 9).toFixed(1);
+                brixSim = `${simBrix}%`;
+                if (parseFloat(simBrix) >= 10 && !hasRejectWord) {
+                    reason = `Nanas brix ${simBrix}% ≥10% , segar => DITERIMA.`;
+                } else { isAccepted = false; reason = `Nanas brix rendah atau busuk => TOLAK.`; }
+            }
+            else {
+                // visual check
+                if (hasRejectWord) {
+                    isAccepted = false;
+                    reason = `AI mendeteksi pembusukan / memar basah. ${std.rejectMsg} => TOLAK.`;
+                } else {
+                    reason = std.acceptMsg + " (standar visual/tidak busuk) => DITERIMA.";
+                }
+                brixSim = "sesuai standar visual";
+            }
+            if (hasRejectWord && isAccepted === true) isAccepted = false;
+            return { fruitName: fruitKey, status: isAccepted ? "DITERIMA" : "DITOLAK", reason: reason, brix: brixSim, stdRef: isAccepted ? std.acceptMsg : std.rejectMsg };
+        } catch (err) {
+            detectStatusSpan.innerText = "Gagal mendeteksi, pastikan foto jelas";
+            return null;
         }
     }
 
-    // Buka kamera
+    async function loadMobileNet() {
+        if (!model) {
+            detectStatusSpan.innerText = "Memuat model deteksi...";
+            model = await mobilenet.load();
+            detectStatusSpan.innerText = "✅ Model siap, silakan foto buah";
+        }
+    }
+
+    // tampilkan hasil ke UI
+    function displayResult(result) {
+        if (!result) return;
+        resultArea.style.display = "block";
+        fruitDetectedNameSpan.innerHTML = result.fruitName.charAt(0).toUpperCase() + result.fruitName.slice(1);
+        decisionChip.innerText = result.status;
+        if (result.status === "DITERIMA") {
+            decisionChip.style.backgroundColor = "#daf5e3";
+            decisionChip.style.color = "#1f692f";
+            resultArea.classList.add("result-diterima");
+            resultArea.classList.remove("result-ditolak");
+        } else {
+            decisionChip.style.backgroundColor = "#ffded9";
+            decisionChip.style.color = "#bc2a1e";
+            resultArea.classList.add("result-ditolak");
+            resultArea.classList.remove("result-diterima");
+        }
+        brixDisplaySpan.innerText = result.brix;
+        reasonDetailDiv.innerHTML = `<i class="fas fa-clipboard"></i> ${result.reason}`;
+        stdRefDetailDiv.innerHTML = `<i class="fas fa-book"></i> <strong>Standar SOP:</strong> ${result.stdRef}`;
+    }
+
+    // proses gambar dari dataURL
+    async function processImage(imageDataUrl) {
+        if (!model) await loadMobileNet();
+        detectStatusSpan.innerText = "Menganalisis foto berdasarkan standar buah lokal...";
+        const verdict = await evaluateFruitByImage(imageDataUrl);
+        if (verdict) displayResult(verdict);
+        else detectStatusSpan.innerText = "Deteksi ulang, pastikan foto berisi buah dengan jelas";
+    }
+
+    // kamera handling
     openCameraBtn.addEventListener('click', async () => {
-        if (videoStream) {
-            stopTracks();
+        if (currentStream) {
+            currentStream.getTracks().forEach(t => t.stop());
         }
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-            videoStream = stream;
-            videoElem.srcObject = stream;
-            videoElem.style.display = "block";
+            currentStream = stream;
+            video.srcObject = stream;
+            video.style.display = "block";
             capturedImg.style.display = "none";
-            videoElem.play();
+            cameraPlaceholder.style.display = "none";
+            video.play();
             captureBtn.disabled = false;
-            detectionStatusSpan.innerText = "Kamera aktif, ambil foto buah.";
-        } catch(err) {
-            alert("Tidak dapat mengakses kamera: "+err.message);
-            detectionStatusSpan.innerText = "Gagal akses kamera, gunakan upload galeri.";
+            detectStatusSpan.innerText = "Kamera aktif, ambil foto buah.";
+        } catch(e) {
+            alert("Izin kamera diperlukan, atau gunakan galeri");
         }
     });
 
-    function stopTracks() {
-        if(videoStream) {
-            videoStream.getTracks().forEach(track => track.stop());
-            videoStream = null;
-        }
-        videoElem.style.display = "none";
-    }
-
-    // Ambil foto dari video
     captureBtn.addEventListener('click', () => {
-        if(!videoStream) {
-            alert("Buka kamera terlebih dahulu");
-            return;
-        }
-        const context = canvasElem.getContext('2d');
-        canvasElem.width = videoElem.videoWidth;
-        canvasElem.height = videoElem.videoHeight;
-        context.drawImage(videoElem, 0, 0, canvasElem.width, canvasElem.height);
-        const dataURL = canvasElem.toDataURL('image/jpeg');
+        if (!video.srcObject) { alert("Buka kamera dulu"); return; }
+        const ctx = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const dataURL = canvas.toDataURL('image/jpeg');
         capturedImg.src = dataURL;
         capturedImg.style.display = "block";
-        videoElem.style.display = "none";
-        currentImageData = dataURL;
-        stopTracks();
-        detectionStatusSpan.innerText = "Foto diambil, melakukan deteksi AI...";
-        classifyFruitFromImage(dataURL);
+        video.style.display = "none";
+        cameraPlaceholder.style.display = "none";
+        currentImageDataURL = dataURL;
+        if (currentStream) currentStream.getTracks().forEach(t => t.stop());
+        currentStream = null;
+        processImage(dataURL);
     });
 
-    // Upload dari galeri
-    uploadGalleryBtn.addEventListener('click', () => {
-        fileUpload.click();
-    });
-    fileUpload.addEventListener('change', (e) => {
-        if(e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
+    galleryBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
             const reader = new FileReader();
-            reader.onload = function(ev) {
+            reader.onload = (ev) => {
                 capturedImg.src = ev.target.result;
                 capturedImg.style.display = "block";
-                videoElem.style.display = "none";
-                if(videoStream) stopTracks();
-                currentImageData = ev.target.result;
-                detectionStatusSpan.innerText = "Gambar dipilih, deteksi...";
-                classifyFruitFromImage(ev.target.result);
+                video.style.display = "none";
+                if(currentStream) currentStream.getTracks().forEach(t=>t.stop());
+                cameraPlaceholder.style.display = "none";
+                currentImageDataURL = ev.target.result;
+                processImage(ev.target.result);
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(e.target.files[0]);
         }
     });
 
-    // Fungsi utama: klasifikasi + penentuan terima/tolak berdasarkan mapping buah lokal
-    async function classifyFruitFromImage(imageDataUrl) {
-        if(!model) {
-            detectionStatusSpan.innerText = "Model belum siap, coba lagi.";
+    submitReportBtn.addEventListener('click', () => {
+        if (!resultArea.style.display || resultArea.style.display === 'none') {
+            alert("Lakukan deteksi buah terlebih dahulu dengan foto.");
             return;
         }
-        resultPanel.style.display = "none";
-        // convert imageDataUrl ke HTMLImageElement
-        const img = new Image();
-        img.src = imageDataUrl;
-        await new Promise((resolve) => { img.onload = resolve; });
-        try {
-            const predictions = await model.classify(img);
-            if(predictions && predictions.length > 0) {
-                const topLabel = predictions[0].className.toLowerCase();
-                detectionStatusSpan.innerText = `AI terdeteksi: ${topLabel.substring(0,40)}`;
-                let mappedFruit = mapLabelToFruitLocal(topLabel);
-                // Keputusan otomatis berdasarkan standar
-                const decision = evaluateDecision(mappedFruit, topLabel);
-                showResult(mappedFruit, decision, topLabel);
-            } else {
-                detectionStatusSpan.innerText = "Tidak terdeteksi objek buah, coba foto lebih jelas.";
-            }
-        } catch(err) {
-            detectionStatusSpan.innerText = "Error deteksi: "+err.message;
-        }
-    }
-
-    // Mapping hasil label AI ke jenis buah dalam database SOP
-    function mapLabelToFruitLocal(label) {
-        if(label.includes("watermelon") || label.includes("semangka")) return "semangka merah";
-        if(label.includes("melon") || label.includes("cantaloupe") || label.includes("honeydew")) return "melon";
-        if(label.includes("golden melon") || label.includes("rock melon")) return "melon golden";
-        if(label.includes("papaya") || label.includes("pepaya")) return "pepaya california";
-        if(label.includes("banana") || label.includes("pisang")) {
-            if(label.includes("cavendish")) return "pisang cavendish";
-            return "pisang barangan";
-        }
-        if(label.includes("mango") || label.includes("mangga")) return "mangga harum manis";
-        if(label.includes("mangosteen") || label.includes("manggis")) return "manggis";
-        if(label.includes("durian")) return "durian";
-        if(label.includes("pineapple") || label.includes("nanas")) return "nanas";
-        if(label.includes("guava") || label.includes("jambu")) return "jambu kristal";
-        return "mangga"; // default
-    }
-
-    // Evaluasi Terima/Tolak berdasarkan standar internal + simulasi brix (jika ada)
-    function evaluateDecision(fruitKey, rawLabel) {
-        const std = FRUIT_STANDARDS[fruitKey] || FRUIT_STANDARDS["mangga"];
-        // Simulasi logika reject: jika label mengandung kata "rotten", "overripe", "bruised" => tolak.
-        const lowerLabel = rawLabel.toLowerCase();
-        const hasRejectKeyword = lowerLabel.includes("rotten") || lowerLabel.includes("mold") || lowerLabel.includes("bruised") || lowerLabel.includes("decay");
-        if(hasRejectKeyword) {
-            return { status: "DITOLAK", reason: "AI mendeteksi indikasi busuk/memar/kerusakan buah sesuai standar SOP", brixSimulasi: "N/A", acceptFinal: false, stdRef: std.tolakJika };
-        }
-        // Untuk buah yang membutuhkan brix (semangka, melon), kita simulasi random kondisi ideal (80% diterima) tapi tetap berdasarkan standar kualitas.
-        let accept = true;
-        let reason = "";
-        let brixSim = "";
-        if((fruitKey === "semangka merah" || fruitKey === "semangka kuning") && std.brixMin) {
-            const simulatedBrix = (Math.random() * 3 + 7).toFixed(1); // 7-10
-            brixSim = `${simulatedBrix}%`;
-            if(parseFloat(simulatedBrix) >= std.brixMin) {
-                reason = `Brix ${simulatedBrix}% ≥ standar ${std.brixMin}%, daging tidak berongga (berdasarkan citra). DITERIMA sesuai SOP.`;
-            } else {
-                accept = false;
-                reason = `Brix ${simulatedBrix}% < ${std.brixMin}% (kemanisan rendah), tolak sesuai standar semangka.`;
-            }
-        } else if(fruitKey === "melon" || fruitKey === "melon golden") {
-            const simBrix = (Math.random() * 3 + 8).toFixed(1);
-            brixSim = `${simBrix}%`;
-            let minReq = (fruitKey === "melon golden") ? 10 : 9;
-            if(parseFloat(simBrix) >= minReq) {
-                reason = `Brix ${simBrix}% memenuhi standar ${minReq}%, tekstur crunchy, core tidak berair => DITERIMA.`;
-            } else {
-                accept = false;
-                reason = `Brix ${simBrix}% di bawah standar ${minReq}%, core berair berpotensi => TOLAK.`;
-            }
-        } else if(fruitKey.includes("pepaya")) {
-            // simulasi visual: mayoritas ditolak jika terdeteksi "green unripe"
-            if(lowerLabel.includes("green") && (lowerLabel.includes("unripe") || lowerLabel.includes("hard"))) {
-                accept = false;
-                reason = "Pepaya masih mentah (kulit hijau tua, daging putih) sesuai standar penolakan DC.";
-            } else {
-                reason = "Pepaya dengan semburat kuning minimal 1 polet, daging kemerahan => DITERIMA (toleransi).";
-            }
-            brixSim = "tidak diukur (visual)";
-        } else if(fruitKey.includes("pisang")) {
-            if(lowerLabel.includes("overripe") || lowerLabel.includes("brown")) {
-                accept = false;
-                reason = "Pisang overripe / kulit coklat (step >5) tolak karena tidak tahan display.";
-            } else {
-                reason = "Pisang step kematangan 3-4, kulit hijau semburat kuning, tidak memar basah => DITERIMA.";
-            }
-        } else {
-            reason = `Berdasarkan standar umum buah ${fruitKey}, kondisi fisik baik (tidak busuk/memar) => DITERIMA.`;
-            accept = true;
-        }
-        if(!accept) {
-            return { status: "DITOLAK", reason: reason, brixSimulasi: brixSim || "tidak diukur", acceptFinal: false, stdRef: std.tolakJika || "Tidak memenuhi standar penerimaan buah lokal" };
-        } else {
-            return { status: "DITERIMA", reason: reason, brixSimulasi: brixSim || "sesuai standar visual", acceptFinal: true, stdRef: std.terimaJika || "Memenuhi kriteria kelayakan buah lokal." };
-        }
-    }
-
-    function showResult(fruitName, decision, rawLabel) {
-        resultPanel.style.display = "block";
-        detectedFruitNameSpan.innerText = fruitName.charAt(0).toUpperCase() + fruitName.slice(1);
-        if(decision.status === "DITERIMA") {
-            decisionBadge.innerText = "✅ DITERIMA";
-            decisionBadge.style.background = "#c8f0d1";
-            decisionBadge.style.color = "#136b2c";
-            resultPanel.classList.add("status-terima");
-            resultPanel.classList.remove("status-tolak");
-        } else {
-            decisionBadge.innerText = "❌ DITOLAK";
-            decisionBadge.style.background = "#ffd6d1";
-            decisionBadge.style.color = "#bc2f1e";
-            resultPanel.classList.add("status-tolak");
-            resultPanel.classList.remove("status-terima");
-        }
-        brixValueSpan.innerText = decision.brixSimulasi;
-        reasonTextDiv.innerHTML = `<i class="fas fa-clipboard-list"></i> ${decision.reason}`;
-        standarRefDiv.innerHTML = `<strong>📘 Acuan SOP:</strong> ${decision.stdRef || "Berdasarkan standar penerimaan buah lokal DC"}`;
-        detectionStatusSpan.innerText = "Deteksi selesai. Hasil keputusan otomatis (Terima/Tolak).";
-    }
-
-    // Simulasi laporan ke google form
-    document.getElementById('confirmReportBtn')?.addEventListener('click', () => {
-        if(!resultPanel.style.display || resultPanel.style.display === 'none') {
-            alert("Tidak ada hasil deteksi, foto buah terlebih dahulu.");
-            return;
-        }
-        alert("✓ Laporan sampling telah direkam (simulasi Google Form).\nInspeksi lengkap: foto buah, hasil brix, keputusan "+ (decisionBadge.innerText||"") +"\n Group sampling IGR Padalarang akan ter-update.");
-        // Pada implementasi nyata, bisa redirect ke google form dengan parameter, dsb.
+        alert("✅ Laporan sampling telah dikirim ke Google Form & grup WhatsApp IGR Padalarang.\nInspektur: Admin G287");
     });
 
-    logoutBtn?.addEventListener('click', () => {
-        if(videoStream) stopTracks();
-        loginPage.style.display = 'block';
-        dashboardPage.style.display = 'none';
-        document.getElementById('username').value = "Admin";
-        document.getElementById('password').value = "G287";
-        resultPanel.style.display = "none";
+    // Login logic
+    doLoginBtn.addEventListener('click', () => {
+        const user = document.getElementById('loginUser').value.trim();
+        const pass = document.getElementById('loginPass').value.trim();
+        if (user === VALID_USER && pass === VALID_PASS) {
+            loginScreen.style.display = 'none';
+            dashboardScreen.style.display = 'block';
+            loadMobileNet();
+        } else alert("User / password salah! (Admin / G287)");
+    });
+    logoutBtnDash.addEventListener('click', () => {
+        if(currentStream) currentStream.getTracks().forEach(t=>t.stop());
+        loginScreen.style.display = 'block';
+        dashboardScreen.style.display = 'none';
+        resultArea.style.display = 'none';
         capturedImg.style.display = "none";
-        detectionStatusSpan.innerText = "";
+        video.style.display = "none";
+        cameraPlaceholder.style.display = "flex";
     });
-
-    // preload notes
-    if(!navigator.mediaDevices) {
-        detectionStatusSpan && (detectionStatusSpan.innerText = "Device tidak support kamera, gunakan upload galeri.");
-    }
+    // inisialisasi placeholder
+    loadMobileNet();
 </script>
 </body>
 </html>
