@@ -2,9 +2,9 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Ferishable Check IGR G287 - Penerimaan Buah Lokal</title>
-    <!-- Font Awesome 6 (free) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>FreshCheck IGR G287 - Penerimaan Buah Lokal</title>
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -21,345 +21,379 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #d9e3d4;
+            background: #d1e0ca;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 12px;
+            padding: 0;
+            margin: 0;
         }
 
-        /* Container utama seperti app */
-        .app-android {
-            max-width: 500px;
+        /* Container utama - full width di HP */
+        .app-container {
             width: 100%;
-            margin: 0 auto;
+            max-width: 100%;
             background: #ffffff;
-            border-radius: 44px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Status bar dummy */
-        .status-bar {
-            background: #1f582b;
-            padding: 12px 20px 6px;
-            color: white;
-            font-size: 0.75rem;
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            box-shadow: none;
         }
 
         /* Header */
         .app-header {
             background: linear-gradient(135deg, #1e5829, #2b743a);
-            padding: 20px 22px;
+            padding: 20px 20px 18px;
             color: white;
+            border-radius: 0 0 28px 28px;
         }
         .app-header h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         .app-header h1 i {
             background: #ffcd7e;
             color: #1f4f2a;
             padding: 8px;
-            border-radius: 40px;
+            border-radius: 50px;
             font-size: 1.3rem;
         }
         .lokasi-badge {
             background: rgba(255,255,255,0.2);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             padding: 6px 14px;
             border-radius: 60px;
             font-size: 0.7rem;
             font-weight: 500;
-            margin-top: 8px;
-            backdrop-filter: blur(2px);
+            margin-top: 10px;
         }
 
-        /* konten */
+        /* Konten */
         .content {
-            padding: 20px 18px 28px;
+            flex: 1;
+            padding: 20px 16px 30px;
         }
 
-        /* Camera card */
+        /* Card kamera */
         .camera-card {
-            background: #f6faf3;
-            border-radius: 36px;
-            padding: 18px;
+            background: #f8fbf5;
+            border-radius: 28px;
+            padding: 16px;
             margin-bottom: 20px;
             border: 1px solid #e2f0dc;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
         }
-        .camera-preview {
+        .camera-title {
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        .preview-area {
             background: #e2ecd9;
-            border-radius: 32px;
+            border-radius: 24px;
             overflow: hidden;
-            margin: 12px 0;
-            min-height: 220px;
+            min-height: 240px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            margin-bottom: 12px;
         }
         #video, #capturedImage {
             width: 100%;
             display: block;
             object-fit: cover;
-            max-height: 280px;
+            max-height: 260px;
         }
         #capturedImage {
             background: #cfddc4;
         }
+        .placeholder-camera {
+            padding: 50px 20px;
+            text-align: center;
+            color: #7f9972;
+        }
         .btn-row {
             display: flex;
             gap: 12px;
-            margin: 12px 0 8px;
+            margin: 12px 0;
         }
-        .btn-android {
+        .btn {
             flex: 1;
             background: white;
-            border: none;
+            border: 1px solid #cfdec5;
             padding: 14px 0;
             border-radius: 60px;
-            font-weight: 700;
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             cursor: pointer;
-            transition: 0.1s linear;
-            background: #fefefe;
-            border: 1px solid #cfe0c7;
+            transition: 0.1s;
+            background: #ffffff;
         }
-        .btn-primary-solid {
+        .btn-primary {
             background: #2a7a38;
             color: white;
             border: none;
-            box-shadow: none;
         }
-        .btn-primary-solid:active {
+        .btn-primary:active {
             background: #1e602b;
             transform: scale(0.97);
         }
-        .btn-android:active {
+        .btn:active {
             transform: scale(0.97);
             background: #eef3ea;
         }
-        .info-detection {
-            font-size: 0.75rem;
-            color: #4b6b3e;
-            margin-top: 8px;
+        .btn-full {
+            width: 100%;
+        }
+        .info-text {
+            font-size: 0.7rem;
+            color: #5a7452;
             text-align: center;
+            margin-top: 8px;
         }
 
         /* Result card */
         .result-card {
             background: #fffef7;
-            border-radius: 32px;
-            padding: 20px;
-            margin: 20px 0;
+            border-radius: 28px;
+            padding: 18px;
+            margin: 16px 0;
             border-left: 8px solid #f6b83d;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
-            transition: all 0.2s;
         }
-        .result-diterima {
+        .result-accept {
             border-left-color: #2e8b3c;
             background: #effbef;
         }
-        .result-ditolak {
+        .result-reject {
             border-left-color: #e34234;
             background: #fff0ed;
         }
-        .fruit-title {
-            font-size: 1.5rem;
-            font-weight: 800;
+        .fruit-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
         }
-        .badge-keputusan {
+        .fruit-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .decision-badge {
             padding: 6px 16px;
             border-radius: 50px;
             font-weight: 700;
+            font-size: 0.75rem;
+        }
+        .brix-box {
+            background: #f2f0e6;
+            border-radius: 24px;
+            padding: 8px 12px;
+            display: inline-block;
+            margin: 8px 0;
             font-size: 0.8rem;
         }
-        .brix-value {
-            background: #f2f0e6;
-            border-radius: 28px;
-            padding: 8px 12px;
-            margin: 12px 0;
-            display: inline-block;
+        .reason-text {
+            margin: 10px 0;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
-        .referensi-standar {
+        .std-reference {
             background: #fff1da;
-            border-radius: 24px;
-            padding: 10px 14px;
-            font-size: 0.75rem;
+            border-radius: 20px;
+            padding: 10px 12px;
+            font-size: 0.7rem;
             margin-top: 12px;
         }
-        /* gallery standar */
-        .standar-gallery {
+
+        /* Galeri standar */
+        .gallery-section {
             margin-top: 24px;
+        }
+        .gallery-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
         .gallery-scroll {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             overflow-x: auto;
-            padding: 6px 4px 12px;
+            padding-bottom: 8px;
             scrollbar-width: thin;
         }
         .gallery-item {
-            min-width: 130px;
-            background: #ffffff;
-            border-radius: 28px;
-            padding: 10px;
+            min-width: 120px;
+            background: white;
+            border-radius: 24px;
+            padding: 8px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             border: 1px solid #e2e8dd;
         }
         .gallery-item img {
             width: 100%;
-            height: 110px;
+            height: 100px;
             object-fit: cover;
-            border-radius: 20px;
+            border-radius: 18px;
             background: #cddfc0;
         }
         .gallery-item span {
-            font-weight: 600;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
+            font-weight: 500;
             display: block;
             margin-top: 6px;
+        }
+
+        /* Login */
+        .input-group {
+            margin-bottom: 18px;
+        }
+        .input-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+            color: #2d4a2c;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 34px;
+            border: 1.5px solid #cfdec9;
+            font-size: 1rem;
+            background: #ffffff;
         }
         .logout-footer {
             background: none;
             border: none;
-            color: #98ab8f;
-            margin-top: 14px;
+            color: #8aa87d;
+            margin-top: 20px;
+            font-size: 0.75rem;
+            text-align: center;
             width: 100%;
-            padding: 12px;
-            font-size: 0.8rem;
         }
         hr {
-            margin: 10px 0;
+            margin: 15px 0;
             border: none;
             height: 1px;
             background: #e2e9dc;
         }
-        .flex-between {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-<div class="app-android" id="appRoot">
-    <!-- Halaman Login -->
+<div class="app-container" id="appContainer">
+    <!-- LAYAR LOGIN -->
     <div id="loginScreen">
         <div class="app-header">
             <h1><i class="fas fa-apple-alt"></i> FreshCheck</h1>
-            <div class="lokasi-badge"><i class="fas fa-map-marker-alt"></i> IGR Padalarang G287</div>
+            <div class="lokasi-badge"><i class="fas fa-map-marker-alt"></i> IGR Perishable Padalarang G287</div>
         </div>
         <div class="content">
-            <div style="margin-bottom: 30px;">
-                <p style="color: #2d4a2c; font-weight: 500;"><i class="fas fa-shield-alt"></i> Penerimaan Buah Lokal | Wajib Sampling</p>
+            <div style="margin-bottom: 24px;">
+                <p style="color: #2d6a2d; font-weight: 500;"><i class="fas fa-shield-alt"></i> Penerimaan Buah Lokal | Wajib Sampling</p>
             </div>
-            <div class="input-group" style="margin-bottom: 18px;">
-                <label style="font-weight: 600;">Username</label>
-                <input type="text" id="loginUser" placeholder="Admin" value="Admin" style="width:100%; padding: 14px; border-radius: 34px; border:1px solid #cbdcc2; font-size:1rem;">
+            <div class="input-group">
+                <label><i class="fas fa-user"></i> Username</label>
+                <input type="text" id="loginUser" placeholder="Admin" value="Admin">
             </div>
-            <div class="input-group" style="margin-bottom: 24px;">
-                <label style="font-weight: 600;">Password</label>
-                <input type="password" id="loginPass" placeholder="Kata sandi" value="G287" style="width:100%; padding: 14px; border-radius: 34px; border:1px solid #cbdcc2;">
+            <div class="input-group">
+                <label><i class="fas fa-lock"></i> Password</label>
+                <input type="password" id="loginPass" placeholder="Kata sandi" value="G287">
             </div>
-            <button id="doLoginBtn" class="btn-android btn-primary-solid" style="width:100%;"><i class="fas fa-sign-in-alt"></i> Masuk ke sistem</button>
-            <p class="info-detection" style="margin-top: 18px;">Gunakan kredensial: Admin / G287</p>
+            <button id="loginBtn" class="btn btn-primary btn-full"><i class="fas fa-sign-in-alt"></i> Masuk ke Sistem</button>
+            <p class="info-text" style="margin-top: 16px;">SOP penerimaan barang</p>
         </div>
     </div>
 
-    <!-- Halaman Dashboard (setelah login) -->
-    <div id="dashboardScreen" style="display:none;">
-        <div class="app-header" style="padding: 16px 20px;">
-            <div class="flex-between">
-                <h1 style="font-size:1.4rem;"><i class="fas fa-camera-retro"></i> Scan Buah</h1>
-                <button id="logoutBtnDash" style="background:rgba(255,255,255,0.2); border:none; padding:8px 14px; border-radius:50px; color:white;"><i class="fas fa-sign-out-alt"></i></button>
+    <!-- LAYAR DASHBOARD (setelah login) -->
+    <div id="dashboardScreen" class="hidden">
+        <div class="app-header" style="padding: 16px 16px 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 style="font-size: 1.4rem;"><i class="fas fa-camera-retro"></i> Scan Buah</h1>
+                <button id="logoutBtn" style="background: rgba(255,255,255,0.2); border: none; padding: 8px 14px; border-radius: 50px; color: white; font-size: 0.8rem;"><i class="fas fa-sign-out-alt"></i> Keluar</button>
             </div>
-            <div class="lokasi-badge"><i class="fas fa-warehouse"></i> IGR G287 | Admin</div>
+            <div class="lokasi-badge"><i class="fas fa-warehouse"></i> IGR perishable padalarang G287 | Admin</div>
         </div>
         <div class="content">
             <!-- Kamera & Upload -->
             <div class="camera-card">
-                <div style="font-weight: 700;"><i class="fas fa-camera"></i> Foto buah (wajib sampling acak)</div>
-                <div class="camera-preview" id="previewContainer">
-                    <video id="video" autoplay playsinline style="display:none; border-radius: 28px;"></video>
-                    <img id="capturedImage" src="" alt="Preview buah" style="display:none; border-radius: 28px;">
+                <div class="camera-title"><i class="fas fa-camera"></i> Foto buah sampling acak</div>
+                <div class="preview-area" id="previewArea">
+                    <video id="video" autoplay playsinline style="display:none; border-radius: 24px;"></video>
+                    <img id="capturedImage" src="" alt="Preview" style="display:none; border-radius: 24px;">
                     <canvas id="canvas" style="display:none;"></canvas>
-                    <div id="cameraPlaceholder" style="padding:40px; text-align:center; color:#7f9972;"><i class="fas fa-image" style="font-size: 44px;"></i><br>Tekan Buka Kamera</div>
+                    <div id="cameraPlaceholder" class="placeholder-camera">
+                        <i class="fas fa-image" style="font-size: 48px; opacity: 0.6;"></i><br>Tekan tombol kamera
+                    </div>
                 </div>
                 <div class="btn-row">
-                    <button id="openCameraBtnMobile" class="btn-android"><i class="fas fa-camera"></i> Buka Kamera</button>
-                    <button id="capturePhotoBtn" class="btn-android btn-primary-solid" disabled><i class="fas fa-dot-circle"></i> Jepret</button>
+                    <button id="openCameraBtn" class="btn"><i class="fas fa-video"></i> Buka Kamera</button>
+                    <button id="captureBtn" class="btn btn-primary" disabled><i class="fas fa-dot-circle"></i> Jepret</button>
                 </div>
-                <button id="galleryBtnMobile" class="btn-android" style="width:100%; margin-top:6px;"><i class="fas fa-images"></i> Pilih dari Galeri</button>
-                <input type="file" id="fileInput" accept="image/*" capture="environment" style="display:none;">
-                <div id="detectStatus" class="info-detection">🤖 Siap deteksi setelah foto</div>
+                <button id="galleryBtn" class="btn btn-full"><i class="fas fa-images"></i> Pilih dari Galeri</button>
+                <input type="file" id="fileInput" accept="image/*" style="display:none;">
+                <div id="detectStatus" class="info-text">🤖 Siap deteksi setelah foto</div>
             </div>
 
-            <!-- Hasil Deteksi Otomatis (Terima/Tolak) -->
-            <div id="resultArea" style="display:none;" class="result-card">
-                <div class="fruit-title">
-                    <span id="fruitDetectedName">-</span>
-                    <span id="decisionChip" class="badge-keputusan">--</span>
+            <!-- Hasil Deteksi -->
+            <div id="resultArea" class="hidden result-card">
+                <div class="fruit-header">
+                    <span class="fruit-name" id="fruitName">-</span>
+                    <span id="decisionBadge" class="decision-badge">--</span>
                 </div>
-                <div id="brixInfoArea" class="brix-value"><i class="fas fa-tachometer-alt"></i> <span id="brixDisplay">--</span></div>
-                <div id="reasonDetail" style="margin: 12px 0; font-size:0.85rem;"></div>
-                <div id="stdRefDetail" class="referensi-standar"></div>
-                <button id="submitReportBtn" class="btn-android btn-primary-solid" style="margin-top:16px;"><i class="fas fa-check-circle"></i> Laporkan ke Group Sampling</button>
+                <div class="brix-box"><i class="fas fa-tachometer-alt"></i> <span id="brixValue">--</span></div>
+                <div class="reason-text" id="reasonText"></div>
+                <div class="std-reference" id="stdRef"></div>
+                <button id="reportBtn" class="btn btn-primary btn-full" style="margin-top: 14px;"><i class="fas fa-check-circle"></i> Laporkan ke Group Sampling</button>
             </div>
 
-            <!-- Galeri Standar Penerimaan / Penolakan -->
-            <div class="standar-gallery">
-                <div style="display: flex; gap:6px; margin-bottom: 10px;"><i class="fas fa-clipboard-list"></i> <strong>Standar visual (SOP Buah Lokal)</strong></div>
+            <!-- Galeri Standar Penerimaan & Penolakan (foto acuan) -->
+            <div class="gallery-section">
+                <div class="gallery-title"><i class="fas fa-clipboard-list"></i> Standar Penerimaan & Penolakan (SOP)</div>
                 <div class="gallery-scroll">
-                    <div class="gallery-item"><img src="https://placehold.co/400x250/2d6a3a/white?text=Semangka+Matang+Brix8" alt="semangka baik"><span>✓ Semangka Merah (Brix≥8%)</span></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x250/8b3a3a/white?text=Semangka+Busuk" alt="semangka reject"><span>✘ Semangka berongga/busuk</span></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x250/3e9f4a/white?text=Melon+Golden+Brix10" alt="melon golden"><span>✓ Melon Golden Brix 10%</span></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x250/c96f3e/white?text=Overripe+Melon" alt="melon overripe"><span>✘ Melon core berair</span></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x250/ffb347/white?text=Pepaya+1+Polet" alt="pepaya cali baik"><span>✓ Pepaya California (1 polet)</span></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x250/6a4c3c/white?text=Pepaya+Hijau+Mentah" alt="pepaya muda"><span>✘ Pepaya putih (mentah)</span></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x250/f5bc70/white?text=Pisang+Cavendish+Step3" alt="pisang baik"><span>✓ Pisang Cavendish step 3-4</span></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x250/884d3a/white?text=Pisang+Busuk" alt="pisang reject"><span>✘ Pisang overripe/brown</span></div>
+                    <div class="gallery-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='100' viewBox='0 0 120 100'%3E%3Crect width='120' height='100' fill='%232d6a3a'/%3E%3Ctext x='10' y='55' fill='white' font-size='10'%3ESemangka OK%3C/text%3E%3C/svg%3E" alt="semangka"><span>✓ Semangka Merah (Brix≥8%)</span></div>
+                    <div class="gallery-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='100' viewBox='0 0 120 100'%3E%3Crect width='120' height='100' fill='%238b3a3a'/%3E%3Ctext x='10' y='55' fill='white' font-size='10'%3ESemangka Busuk%3C/text%3E%3C/svg%3E" alt="busuk"><span>✘ Semangka berongga/busuk</span></div>
+                    <div class="gallery-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='100' viewBox='0 0 120 100'%3E%3Crect width='120' height='100' fill='%233e9f4a'/%3E%3Ctext x='10' y='55' fill='white' font-size='10'%3EMelon Golden%3C/text%3E%3C/svg%3E" alt="melon"><span>✓ Melon Golden Brix 10%</span></div>
+                    <div class="gallery-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='100' viewBox='0 0 120 100'%3E%3Crect width='120' height='100' fill='%23c96f3e'/%3E%3Ctext x='10' y='55' fill='white' font-size='10'%3EMelon overripe%3C/text%3E%3C/svg%3E" alt="overripe"><span>✘ Melon core berair</span></div>
+                    <div class="gallery-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='100' viewBox='0 0 120 100'%3E%3Crect width='120' height='100' fill='%23ffb347'/%3E%3Ctext x='8' y='55' fill='black' font-size='10'%3EPepaya 1 polet%3C/text%3E%3C/svg%3E" alt="pepaya"><span>✓ Pepaya California (matang)</span></div>
+                    <div class="gallery-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='100' viewBox='0 0 120 100'%3E%3Crect width='120' height='100' fill='%236a4c3c'/%3E%3Ctext x='10' y='55' fill='white' font-size='10'%3EPepaya mentah%3C/text%3E%3C/svg%3E" alt="mentah"><span>✘ Pepaya putih (petik muda)</span></div>
+                    <div class="gallery-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='100' viewBox='0 0 120 100'%3E%3Crect width='120' height='100' fill='%23f5bc70'/%3E%3Ctext x='8' y='55' fill='black' font-size='10'%3EPisang Cavendish%3C/text%3E%3C/svg%3E" alt="pisang baik"><span>✓ Pisang step 3-4</span></div>
+                    <div class="gallery-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='100' viewBox='0 0 120 100'%3E%3Crect width='120' height='100' fill='%23884d3a'/%3E%3Ctext x='8' y='55' fill='white' font-size='10'%3EPisang busuk%3C/text%3E%3C/svg%3E" alt="pisang reject"><span>✘ Pisang overripe/brown</span></div>
                 </div>
-                <p class="info-detection" style="margin-top: 8px;"><i class="fas fa-info-circle"></i> Acuan berdasarkan dokumen SOP buah lokal & standar brix</p>
+                <p class="info-text" style="margin-top: 8px;"><i class="fas fa-info-circle"></i> Acuan SOP buah lokal & standar brix refraktometer</p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // Credentials
+    // ======================== KREDENSIAL ========================
     const VALID_USER = "Admin";
     const VALID_PASS = "G287";
 
-    // DOM elemen
+    // DOM elements
     const loginScreen = document.getElementById('loginScreen');
     const dashboardScreen = document.getElementById('dashboardScreen');
-    const doLoginBtn = document.getElementById('doLoginBtn');
-    const logoutBtnDash = document.getElementById('logoutBtnDash');
-    const openCameraBtn = document.getElementById('openCameraBtnMobile');
-    const captureBtn = document.getElementById('capturePhotoBtn');
-    const galleryBtn = document.getElementById('galleryBtnMobile');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const openCameraBtn = document.getElementById('openCameraBtn');
+    const captureBtn = document.getElementById('captureBtn');
+    const galleryBtn = document.getElementById('galleryBtn');
     const fileInput = document.getElementById('fileInput');
     const video = document.getElementById('video');
     const capturedImg = document.getElementById('capturedImage');
@@ -367,44 +401,40 @@
     const cameraPlaceholder = document.getElementById('cameraPlaceholder');
     const detectStatusSpan = document.getElementById('detectStatus');
     const resultArea = document.getElementById('resultArea');
-    const fruitDetectedNameSpan = document.getElementById('fruitDetectedName');
-    const decisionChip = document.getElementById('decisionChip');
-    const brixDisplaySpan = document.getElementById('brixDisplay');
-    const reasonDetailDiv = document.getElementById('reasonDetail');
-    const stdRefDetailDiv = document.getElementById('stdRefDetail');
-    const submitReportBtn = document.getElementById('submitReportBtn');
+    const fruitNameSpan = document.getElementById('fruitName');
+    const decisionBadge = document.getElementById('decisionBadge');
+    const brixValueSpan = document.getElementById('brixValue');
+    const reasonTextSpan = document.getElementById('reasonText');
+    const stdRefSpan = document.getElementById('stdRef');
+    const reportBtn = document.getElementById('reportBtn');
 
-    let model = null;
+    let mobilenetModel = null;
     let currentStream = null;
     let currentImageDataURL = null;
 
-    // Standar database buah (SOP dari PDF)
-    const FRUIT_DB = {
-        "semangka merah": { brixMin: 8, acceptMsg: "Daging merah/kuning, brix≥8%, tidak berongga", rejectMsg: "Brix<8% atau daging berongga/masir/busuk", accept: true },
-        "semangka kuning": { brixMin: 8, acceptMsg: "Daging kuning manis, brix min 8%", rejectMsg: "Brix rendah, tekstur lunak", accept: true },
-        "melon": { brixMin: 9, acceptMsg: "Melon brix 9-10%, daging crunchy, core tidak berair", rejectMsg: "Brix<9%, core berair/biji rontok", accept: true },
-        "melon golden": { brixMin: 10, acceptMsg: "Melon golden brix≥10%, daging orange manis", rejectMsg: "Brix rendah, aroma tidak segar", accept: true },
-        "pepaya california": { brixMin: null, acceptMsg: "Kulit hijau minimal 1 polet kuning, daging merah", rejectMsg: "Kulit hijau tua daging putih atau kuning pekat overripe", accept: true },
-        "pisang cavendish": { acceptMsg: "Step 3-4, kulit hijau semburat kuning, panjang standar", rejectMsg: "Chilling injury, green soft, split peel, overripe", accept: true },
-        "pisang barangan": { acceptMsg: "Kulit hijau keras semburat kuning, tidak lembek", rejectMsg: "Kulit kuning pekat, lembek, busuk", accept: true },
-        "mangga harum manis": { acceptMsg: "Petik tua pohon, tekstur keras, daging tengah menguning", rejectMsg: "Petik muda (biji putih), memar basah", accept: true },
-        "manggis": { acceptMsg: "Kulit merah segar, kelopak hijau, getah minor", rejectMsg: "Kulit hitam, kelopak kering, daging flek coklat", accept: true },
-        "durian": { acceptMsg: "Kulit hijau semburat kuning, daging tebal manis", rejectMsg: "Black spot, pecah mayor, busuk berjamur", accept: true },
-        "nanas": { brixMin: 10, acceptMsg: "Nanas lokal brix ≥10% (Honi 13%)", rejectMsg: "Brix dibawah standar, busuk", accept: true },
-        "default": { acceptMsg: "Memenuhi kriteria kelayakan fisik tidak busuk/memar", rejectMsg: "Terdapat indikasi kerusakan / tidak segar", accept: true }
+    // ========== DATABASE STANDAR PENERIMAAN (DARI SOP PDF) ==========
+    const FRUIT_STD = {
+        "semangka merah": { brixMin: 8, acceptDesc: "Daging merah/kuning, brix≥8%, tidak berongga", rejectDesc: "Brix<8% atau daging berongga/masir/busuk" },
+        "semangka kuning": { brixMin: 8, acceptDesc: "Daging kuning manis, brix≥8%", rejectDesc: "Brix rendah, tekstur lunak" },
+        "melon": { brixMin: 9, acceptDesc: "Brix 9-10%, daging crunchy, core tidak berair", rejectDesc: "Brix<9%, core berair/biji rontok" },
+        "melon golden": { brixMin: 10, acceptDesc: "Brix≥10%, daging orange manis", rejectDesc: "Brix rendah, aroma tidak segar" },
+        "pepaya california": { brixMin: null, acceptDesc: "Kulit hijau minimal 1 polet kuning, daging merah", rejectDesc: "Kulit hijau tua daging putih atau kuning pekat overripe" },
+        "pisang cavendish": { acceptDesc: "Step 3-4, kulit hijau semburat kuning, tidak memar", rejectDesc: "Chilling injury, green soft, split peel, overripe" },
+        "pisang barangan": { acceptDesc: "Kulit hijau keras semburat kuning", rejectDesc: "Kulit kuning pekat, lembek, busuk" },
+        "mangga harum manis": { acceptDesc: "Petik tua pohon, tekstur keras, daging menguning", rejectDesc: "Petik muda (biji putih), memar basah" },
+        "manggis": { acceptDesc: "Kulit merah segar, kelopak hijau", rejectDesc: "Kulit hitam, kelopak kering, daging flek coklat" },
+        "durian": { acceptDesc: "Kulit hijau semburat kuning, daging tebal manis", rejectDesc: "Black spot, pecah mayor, busuk berjamur" },
+        "nanas": { brixMin: 10, acceptDesc: "Brix≥10% (Honi 13%)", rejectDesc: "Brix rendah atau busuk" },
+        "default": { acceptDesc: "Memenuhi kriteria kelayakan fisik tidak busuk", rejectDesc: "Indikasi kerusakan / tidak segar" }
     };
 
-    // Mapping label AI ke buah lokal
     function mapLabelToFruit(label) {
         const l = label.toLowerCase();
         if (l.includes("watermelon")) return "semangka merah";
         if (l.includes("melon") && (l.includes("golden") || l.includes("honey"))) return "melon golden";
         if (l.includes("melon") || l.includes("cantaloupe")) return "melon";
         if (l.includes("papaya")) return "pepaya california";
-        if (l.includes("banana")) {
-            if (l.includes("cavendish")) return "pisang cavendish";
-            return "pisang barangan";
-        }
+        if (l.includes("banana")) return l.includes("cavendish") ? "pisang cavendish" : "pisang barangan";
         if (l.includes("mango")) return "mangga harum manis";
         if (l.includes("mangosteen")) return "manggis";
         if (l.includes("durian")) return "durian";
@@ -412,118 +442,114 @@
         return "default";
     }
 
-    // Fungsi evaluasi AI + brix simulasi (mengacu SOP)
-    async function evaluateFruitByImage(imageDataUrl) {
-        if (!model) {
-            detectStatusSpan.innerText = "Model AI memuat ulang, coba lagi...";
-            await loadMobileNet();
+    async function loadModel() {
+        if (!mobilenetModel) {
+            detectStatusSpan.innerText = "Memuat AI (MobileNet)...";
+            mobilenetModel = await mobilenet.load();
+            detectStatusSpan.innerText = "✅ Model siap, ambil foto buah";
         }
+    }
+
+    async function evaluateImage(imageDataURL) {
+        if (!mobilenetModel) await loadModel();
         const img = new Image();
-        img.src = imageDataUrl;
+        img.src = imageDataURL;
         await new Promise(resolve => { img.onload = resolve; });
         try {
-            const predictions = await model.classify(img);
-            if (!predictions.length) throw new Error("tidak terdeteksi");
+            const predictions = await mobilenetModel.classify(img);
+            if (!predictions.length) throw new Error();
             const topLabel = predictions[0].className;
-            detectStatusSpan.innerText = `📸 AI mendeteksi: ${topLabel.substring(0, 35)}`;
+            detectStatusSpan.innerText = `📷 Terdeteksi: ${topLabel.substring(0, 35)}`;
             let fruitKey = mapLabelToFruit(topLabel);
-            const std = FRUIT_DB[fruitKey] || FRUIT_DB["default"];
-            const hasRejectWord = topLabel.toLowerCase().includes("rotten") || topLabel.toLowerCase().includes("mold") || topLabel.toLowerCase().includes("bruised") || topLabel.toLowerCase().includes("decay");
+            const std = FRUIT_STD[fruitKey] || FRUIT_STD["default"];
+            const hasRotten = topLabel.toLowerCase().includes("rotten") || topLabel.toLowerCase().includes("mold") || topLabel.toLowerCase().includes("bruised");
             
-            let isAccepted = true;
+            let isAccept = true;
+            let brixSim = "standar visual";
             let reason = "";
-            let brixSim = "tidak diukur";
-            // Simulasi brix untuk semangka/melon/nanas
+            
+            // Simulasi brix untuk komoditas tertentu
             if ((fruitKey === "semangka merah" || fruitKey === "semangka kuning") && std.brixMin) {
-                const simulated = (Math.random() * 3.5 + 6.5).toFixed(1);
-                brixSim = `${simulated}%`;
-                if (parseFloat(simulated) >= std.brixMin && !hasRejectWord) {
-                    reason = `Brix ${simulated}% ≥ standar ${std.brixMin}%, daging baik => DITERIMA.`;
-                } else if (parseFloat(simulated) < std.brixMin) {
-                    isAccepted = false;
-                    reason = `Brix ${simulated}% < ${std.brixMin}% (kemanisan rendah) => TOLAK sesuai SOP.`;
-                } else { isAccepted = !hasRejectWord; reason = hasRejectWord ? "Terindikasi fisik tidak layak (busuk/memar) => TOLAK." : std.acceptMsg; }
-            } 
+                let simBrix = (Math.random() * 3.5 + 6.5).toFixed(1);
+                brixSim = `${simBrix}%`;
+                if (parseFloat(simBrix) >= std.brixMin && !hasRotten) {
+                    reason = `Brix ${simBrix}% ≥ standar ${std.brixMin}%, daging baik. ${std.acceptDesc}`;
+                } else if (parseFloat(simBrix) < std.brixMin) {
+                    isAccept = false;
+                    reason = `Brix ${simBrix}% < ${std.brixMin}% (kurang manis) => TOLAK. ${std.rejectDesc}`;
+                } else { isAccept = false; reason = `Terindikasi busuk/memar => ${std.rejectDesc}`; }
+            }
             else if (fruitKey === "melon" || fruitKey === "melon golden") {
-                let minReq = (fruitKey === "melon golden") ? 10 : 9;
-                let simBrix = (Math.random() * 3 + 8).toFixed(1);
-                brixSim = `${simBrix}%`;
-                if (parseFloat(simBrix) >= minReq && !hasRejectWord) {
-                    reason = `Brix ${simBrix}% memenuhi standar ${minReq}%, kondisi segar => DITERIMA.`;
+                let minReq = fruitKey === "melon golden" ? 10 : 9;
+                let sim = (Math.random() * 3 + 8).toFixed(1);
+                brixSim = `${sim}%`;
+                if (parseFloat(sim) >= minReq && !hasRotten) {
+                    reason = `Brix ${sim}% ≥ ${minReq}%, segar => DITERIMA. ${std.acceptDesc}`;
                 } else {
-                    isAccepted = false;
-                    reason = `Brix ${simBrix}% < ${minReq}% atau indikasi busuk => TOLAK (core berair / overripe).`;
+                    isAccept = false;
+                    reason = `Brix ${sim}% < ${minReq}% atau indikasi busuk => TOLAK. ${std.rejectDesc}`;
                 }
-            } 
+            }
             else if (fruitKey === "nanas") {
-                let simBrix = (Math.random() * 4 + 9).toFixed(1);
-                brixSim = `${simBrix}%`;
-                if (parseFloat(simBrix) >= 10 && !hasRejectWord) {
-                    reason = `Nanas brix ${simBrix}% ≥10% , segar => DITERIMA.`;
-                } else { isAccepted = false; reason = `Nanas brix rendah atau busuk => TOLAK.`; }
+                let sim = (Math.random() * 3 + 9).toFixed(1);
+                brixSim = `${sim}%`;
+                if (parseFloat(sim) >= 10 && !hasRotten) {
+                    reason = `Nanas brix ${sim}% ≥10% => DITERIMA. ${std.acceptDesc}`;
+                } else { isAccept = false; reason = `Nanas brix rendah atau busuk => TOLAK. ${std.rejectDesc}`; }
             }
             else {
-                // visual check
-                if (hasRejectWord) {
-                    isAccepted = false;
-                    reason = `AI mendeteksi pembusukan / memar basah. ${std.rejectMsg} => TOLAK.`;
+                if (hasRotten) {
+                    isAccept = false;
+                    reason = `AI mendeteksi pembusukan / memar => TOLAK. ${std.rejectDesc}`;
                 } else {
-                    reason = std.acceptMsg + " (standar visual/tidak busuk) => DITERIMA.";
+                    reason = `Kondisi buah baik secara visual => DITERIMA. ${std.acceptDesc}`;
                 }
-                brixSim = "sesuai standar visual";
+                brixSim = "tidak diukur (visual)";
             }
-            if (hasRejectWord && isAccepted === true) isAccepted = false;
-            return { fruitName: fruitKey, status: isAccepted ? "DITERIMA" : "DITOLAK", reason: reason, brix: brixSim, stdRef: isAccepted ? std.acceptMsg : std.rejectMsg };
-        } catch (err) {
-            detectStatusSpan.innerText = "Gagal mendeteksi, pastikan foto jelas";
+            
+            return {
+                fruit: fruitKey.charAt(0).toUpperCase() + fruitKey.slice(1),
+                status: isAccept ? "DITERIMA" : "DITOLAK",
+                reason: reason,
+                brix: brixSim,
+                stdRef: isAccept ? std.acceptDesc : std.rejectDesc
+            };
+        } catch(e) {
+            detectStatusSpan.innerText = "Gagal deteksi, coba foto lebih jelas";
             return null;
         }
     }
 
-    async function loadMobileNet() {
-        if (!model) {
-            detectStatusSpan.innerText = "Memuat model deteksi...";
-            model = await mobilenet.load();
-            detectStatusSpan.innerText = "✅ Model siap, silakan foto buah";
-        }
-    }
-
-    // tampilkan hasil ke UI
-    function displayResult(result) {
-        if (!result) return;
-        resultArea.style.display = "block";
-        fruitDetectedNameSpan.innerHTML = result.fruitName.charAt(0).toUpperCase() + result.fruitName.slice(1);
-        decisionChip.innerText = result.status;
-        if (result.status === "DITERIMA") {
-            decisionChip.style.backgroundColor = "#daf5e3";
-            decisionChip.style.color = "#1f692f";
-            resultArea.classList.add("result-diterima");
-            resultArea.classList.remove("result-ditolak");
+    async function processImageAndShow(dataURL) {
+        detectStatusSpan.innerText = "Menganalisis berdasarkan SOP buah lokal...";
+        const result = await evaluateImage(dataURL);
+        if (result) {
+            resultArea.classList.remove("hidden");
+            fruitNameSpan.innerText = result.fruit;
+            decisionBadge.innerText = result.status;
+            brixValueSpan.innerText = result.brix;
+            reasonTextSpan.innerHTML = `<i class="fas fa-clipboard"></i> ${result.reason}`;
+            stdRefSpan.innerHTML = `<i class="fas fa-book"></i> <strong>Standar SOP:</strong> ${result.stdRef}`;
+            if (result.status === "DITERIMA") {
+                resultArea.classList.add("result-accept");
+                resultArea.classList.remove("result-reject");
+                decisionBadge.style.backgroundColor = "#daf5e3";
+                decisionBadge.style.color = "#1f692f";
+            } else {
+                resultArea.classList.add("result-reject");
+                resultArea.classList.remove("result-accept");
+                decisionBadge.style.backgroundColor = "#ffded9";
+                decisionBadge.style.color = "#bc2a1e";
+            }
+            detectStatusSpan.innerText = "✅ Deteksi selesai. Hasil keputusan sesuai standar.";
         } else {
-            decisionChip.style.backgroundColor = "#ffded9";
-            decisionChip.style.color = "#bc2a1e";
-            resultArea.classList.add("result-ditolak");
-            resultArea.classList.remove("result-diterima");
+            detectStatusSpan.innerText = "Gagal deteksi, ulangi foto dengan pencahayaan cukup.";
         }
-        brixDisplaySpan.innerText = result.brix;
-        reasonDetailDiv.innerHTML = `<i class="fas fa-clipboard"></i> ${result.reason}`;
-        stdRefDetailDiv.innerHTML = `<i class="fas fa-book"></i> <strong>Standar SOP:</strong> ${result.stdRef}`;
     }
 
-    // proses gambar dari dataURL
-    async function processImage(imageDataUrl) {
-        if (!model) await loadMobileNet();
-        detectStatusSpan.innerText = "Menganalisis foto berdasarkan standar buah lokal...";
-        const verdict = await evaluateFruitByImage(imageDataUrl);
-        if (verdict) displayResult(verdict);
-        else detectStatusSpan.innerText = "Deteksi ulang, pastikan foto berisi buah dengan jelas";
-    }
-
-    // kamera handling
+    // Kamera Logic
     openCameraBtn.addEventListener('click', async () => {
-        if (currentStream) {
-            currentStream.getTracks().forEach(t => t.stop());
-        }
+        if (currentStream) currentStream.getTracks().forEach(t => t.stop());
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
             currentStream = stream;
@@ -534,13 +560,13 @@
             video.play();
             captureBtn.disabled = false;
             detectStatusSpan.innerText = "Kamera aktif, ambil foto buah.";
-        } catch(e) {
-            alert("Izin kamera diperlukan, atau gunakan galeri");
+        } catch(err) {
+            alert("Izin kamera diperlukan, atau gunakan galeri.");
         }
     });
 
     captureBtn.addEventListener('click', () => {
-        if (!video.srcObject) { alert("Buka kamera dulu"); return; }
+        if (!video.srcObject) { alert("Buka kamera terlebih dahulu."); return; }
         const ctx = canvas.getContext('2d');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
@@ -550,10 +576,10 @@
         capturedImg.style.display = "block";
         video.style.display = "none";
         cameraPlaceholder.style.display = "none";
-        currentImageDataURL = dataURL;
         if (currentStream) currentStream.getTracks().forEach(t => t.stop());
         currentStream = null;
-        processImage(dataURL);
+        currentImageDataURL = dataURL;
+        processImageAndShow(dataURL);
     });
 
     galleryBtn.addEventListener('click', () => fileInput.click());
@@ -567,41 +593,44 @@
                 if(currentStream) currentStream.getTracks().forEach(t=>t.stop());
                 cameraPlaceholder.style.display = "none";
                 currentImageDataURL = ev.target.result;
-                processImage(ev.target.result);
+                processImageAndShow(ev.target.result);
             };
             reader.readAsDataURL(e.target.files[0]);
         }
     });
 
-    submitReportBtn.addEventListener('click', () => {
-        if (!resultArea.style.display || resultArea.style.display === 'none') {
-            alert("Lakukan deteksi buah terlebih dahulu dengan foto.");
+    reportBtn.addEventListener('click', () => {
+        if (resultArea.classList.contains('hidden')) {
+            alert("Lakukan deteksi foto buah terlebih dahulu.");
             return;
         }
-        alert("✅ Laporan sampling telah dikirim ke Google Form & grup WhatsApp IGR Padalarang.\nInspektur: Admin G287");
+        alert("✅ Laporan sampling dikirim ke Group WhatsApp & Google Form IGR Padalarang G287");
     });
 
-    // Login logic
-    doLoginBtn.addEventListener('click', () => {
+    // Login & Logout
+    loginBtn.addEventListener('click', () => {
         const user = document.getElementById('loginUser').value.trim();
         const pass = document.getElementById('loginPass').value.trim();
         if (user === VALID_USER && pass === VALID_PASS) {
-            loginScreen.style.display = 'none';
-            dashboardScreen.style.display = 'block';
-            loadMobileNet();
-        } else alert("User / password salah! (Admin / G287)");
+            loginScreen.classList.add('hidden');
+            dashboardScreen.classList.remove('hidden');
+            loadModel();
+        } else {
+            alert("Username atau password salah! (Admin / G287)");
+        }
     });
-    logoutBtnDash.addEventListener('click', () => {
-        if(currentStream) currentStream.getTracks().forEach(t=>t.stop());
-        loginScreen.style.display = 'block';
-        dashboardScreen.style.display = 'none';
-        resultArea.style.display = 'none';
+
+    logoutBtn.addEventListener('click', () => {
+        if (currentStream) currentStream.getTracks().forEach(t => t.stop());
+        loginScreen.classList.remove('hidden');
+        dashboardScreen.classList.add('hidden');
+        resultArea.classList.add('hidden');
         capturedImg.style.display = "none";
         video.style.display = "none";
         cameraPlaceholder.style.display = "flex";
     });
-    // inisialisasi placeholder
-    loadMobileNet();
+
+    loadModel();
 </script>
 </body>
 </html>
